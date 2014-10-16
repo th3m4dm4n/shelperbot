@@ -22,11 +22,7 @@
 
 using namespace std;
 
-void handleMessage( string Message)
-{
-}
-
-int handlePossibleFlag( string PossibleFlag)
+int handlePossibleFlag( string PossibleFlag) // this is where command line options are defined
 {
 	if ( PossibleFlag.compare( "--no-image-text") == 0)
 	{
@@ -38,7 +34,7 @@ int handlePossibleFlag( string PossibleFlag)
 	}
 }
 
-bool findFlag( int Flags[FLAGCOUNT], int TargetFlag)
+bool findFlag( int Flags[FLAGCOUNT], int TargetFlag)  // used to read command line options
 {
 	for ( int i = 0; i < FLAGCOUNT; i++)
 	{
@@ -50,7 +46,7 @@ bool findFlag( int Flags[FLAGCOUNT], int TargetFlag)
 	return false;
 }
 
-bool sendData( int BotSocket, string Message)
+bool sendData( int BotSocket, string Message) // send data through a socket
 {
 	int BytesSent = send( BotSocket, Message.c_str(), Message.length(), 0);
 	cout << Message << endl;
@@ -64,7 +60,7 @@ bool sendData( int BotSocket, string Message)
 	}
 }
 
-char* prepareCommand( string Command, string Message)
+char* prepareCommand( string Command, string Message) // according to rfc2812 messages to ircd should end with \r\n
 {
 	Message.insert( 0, Command);
 	Message.append( "\r\n");
@@ -72,14 +68,14 @@ char* prepareCommand( string Command, string Message)
 	return Message_out;
 }
 
-void sayMessage( int BotSocket, string Message, string Channel)
+void sayMessage( int BotSocket, string Message, string Channel) // says a message to the channel specified in launch options
 {
 	Channel.append( " :");
 	Channel.append( Message);
 	sendData( BotSocket, prepareCommand( "PRIVMSG ", Channel));
 }
 
-int connectSocket( char* TargetName, char* TargetPort)
+int connectSocket( char* TargetName, char* TargetPort) // sets up a socket to talk to ircd
 {
 	struct addrinfo StuffAboutTarget, *TargetInfo;
 
@@ -152,8 +148,8 @@ int main( int argc, char** argv)
 	
 	char* IRCServer = argv[1]; //the first argument will be the target name
 	char* IRCPort = argv[2]; //the second argument will be the target port
-	string BotNick = string ( argv[3]);
-	string TargetChannel = string ( argv[4]);
+	string BotNick = string ( argv[3]); //third argument is the initial bot nickname
+	string TargetChannel = string ( argv[4]); //fourth argument is the channel where all messages will be handled.  it can even be a user too!
 	
 	int BotSocket = connectSocket( IRCServer, IRCPort);
 	
@@ -224,6 +220,9 @@ int main( int argc, char** argv)
 			}
 		}
 		
+		/*
+		 * Currently any 8chan functionality is broken
+		 */
 		if ( Buffer_s.find( "://8chan.co/") != -1)
 		{
 			struct eightchanpost_t PostInfo = getEightChanPostInfo( Buffer_s);
@@ -235,6 +234,9 @@ int main( int argc, char** argv)
 			}
 		}
 
+		/*
+		 * shelperbot will rejoin on kick in 3 seconds
+		 */
 		string BotKick = "KICK ";
 		BotKick.append( TargetChannel);
 		if ( Buffer_s.find( BotKick) != -1)
@@ -246,6 +248,9 @@ int main( int argc, char** argv)
 			sendData( BotSocket, prepareCommand( RejoinCommand, ""));
 		}
 
+		/*
+		 * This if statement has shelperbot react to a 4chan image link
+		 */
 		if ( Buffer_s.find( "://i.4cdn.org/") != -1)
 		{
 			
@@ -262,6 +267,9 @@ int main( int argc, char** argv)
 		
 		string BotNickPrivMsg = "PRIVMSG ";
 		BotNickPrivMsg.append( BotNick);
+		/*
+		 * This if statement lets shelperbot shitposts in response to a highlight
+		 */
 		if ( ( Buffer_s.find( "PRIVMSG", 0) != -1) && ( Buffer_s.find( BotNick, Buffer_s.find( "PRIVMSG", 0)) != -1) && ( Buffer_s.find( BotNickPrivMsg, 0) == -1))
 		{
 			srand( time( NULL));

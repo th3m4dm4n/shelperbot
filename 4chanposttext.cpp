@@ -1,7 +1,7 @@
 
 using namespace std;
 
-string fixString( string Input, string Problem, string Solution)
+string fixString( string Input, string Problem, string Solution) // shitty implementation to get rid of unicode and html
 {
 	for ( bool IsFixed = false; IsFixed == false; IsFixed)
 	{
@@ -17,7 +17,7 @@ string fixString( string Input, string Problem, string Solution)
 	return Input;
 }
 
-string grabFourChanPostText( struct fourchanpost_t PostInfo)
+string grabFourChanPostText( struct fourchanpost_t PostInfo) // takes structured post info, builds a URL and returns a string of what the post contents are
 {
 	
 	string BoardLetter = PostInfo.BoardLetter;
@@ -93,7 +93,9 @@ string grabFourChanPostText( struct fourchanpost_t PostInfo)
 				IsFixed = true;
 			}
 		}
-
+		/*
+		 * this is what happens when you don't have a parser for everything
+		 */
 		Json2Irc = fixString( Json2Irc, "</a>", "");
 		Json2Irc = fixString( Json2Irc, "<a href=\"#p", ">>");
 
@@ -113,6 +115,6 @@ string grabFourChanPostText( struct fourchanpost_t PostInfo)
 	}
 	else
 	{
-		return "\r\b\r";
+		return "\r\b\r"; // should be unique enough to never show up in the socket stream
 	}
 }

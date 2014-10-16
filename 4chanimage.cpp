@@ -1,19 +1,19 @@
 using namespace std;
 
-string readJsonString ( string JsonString, jsmntok_t JsonStringInfo)
+string readJsonString ( string JsonString, jsmntok_t JsonStringInfo) // takes a jsmn string object and turns it into a string variable
 {
 	JsonString.erase( 0, JsonStringInfo.start);
 	JsonString.erase( JsonStringInfo.end - JsonStringInfo.start, JsonString.size() - 1);
 	return JsonString;
 }
 
-struct JsonTokenListInfo
+struct JsonTokenListInfo // stuff to make jsmn work
 {
 	int Size;
 	jsmntok_t* Tokens;
 };
 
-struct JsonTokenListInfo getJsonTokenInfo( char* JsonString, int JsonTokenSize)
+struct JsonTokenListInfo getJsonTokenInfo( char* JsonString, int JsonTokenSize) // takes all that jsmn babble and puts it into a nice, readable structure
 {
 	
 	jsmn_parser JsonParser;
@@ -35,8 +35,8 @@ struct JsonTokenListInfo getJsonTokenInfo( char* JsonString, int JsonTokenSize)
 
 struct ImageInfoResults
 {
-	struct fourchanpost_t ImageInfo;
-	string Message;
+	struct fourchanpost_t ImageInfo; // structured info about the post the image is attached to
+	string Message; // message to send to the IRC channel
 };
 
 struct ImageInfoResults getFourChanImageInfo( string Buffer_s)

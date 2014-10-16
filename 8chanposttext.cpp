@@ -1,4 +1,8 @@
-
+/*
+ * BROKEN
+ * DOES NOT WORK
+ * NOT YET
+ */
 using namespace std;
 
 string grabEightChanPostText( struct eightchanpost_t PostInfo)

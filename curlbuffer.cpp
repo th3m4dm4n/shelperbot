@@ -1,12 +1,12 @@
 using namespace std;
 
-struct BufferStruct
+struct BufferStruct // stuff that makes curl work
 {
 	char* Buffer;
 	size_t Size;
 };
 
-static size_t FillBuffer( void* DataPointer, size_t Size, size_t NumMemb, void* Data)
+static size_t FillBuffer( void* DataPointer, size_t Size, size_t NumMemb, void* Data) // stuff that makes curl work
 {
 	size_t RealSize = Size * NumMemb;
 	struct BufferStruct* Memory = ( struct BufferStruct*) Data;
@@ -23,7 +23,7 @@ static size_t FillBuffer( void* DataPointer, size_t Size, size_t NumMemb, void* 
 }
 
 
-char* getWebPage( char* TargetUrl)
+char* getWebPage( char* TargetUrl) // returns a whole webpage in a char array in memory
 {
 	curl_global_init( CURL_GLOBAL_DEFAULT);
 	CURL* CurlHandle = curl_easy_init();

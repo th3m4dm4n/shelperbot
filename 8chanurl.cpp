@@ -1,3 +1,6 @@
+/*
+ * THIS DOESN'T WORK WELL YET EITHER
+ */
 using namespace std;
 
 struct eightchanpost_t

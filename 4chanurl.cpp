@@ -2,13 +2,13 @@ using namespace std;
 
 struct fourchanpost_t
 {
-	string BoardLetter;
-	string ThreadNumber;
-	string PostNumber;
-	bool IsHttps;
+	string BoardLetter; // the board in which the post resides in
+	string ThreadNumber; // the thread in which the post resides in
+	string PostNumber; // the post number of the post
+	bool IsHttps; // i don't know why i have this
 };
 
-struct fourchanpost_t getFourChanPostInfo( string FourChanURL)
+struct fourchanpost_t getFourChanPostInfo( string FourChanURL) // tears apart a 4chan url to a post and gets structured info about the post the url points to
 {
 	bool IsHttps = false;
 	if ( FourChanURL.rfind( "https", FourChanURL.find( "://boards.4chan.org/", 0)) != -1)
