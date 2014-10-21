@@ -180,9 +180,6 @@ int main( int argc, char** argv)
 		string Buffer_s = string (Buffer);
 		cout << Buffer_s;
 
-
-		handleMessage( Buffer_s);
-
 		if ( Buffer_s.find( "PING", 0) != -1)
 		{ 
 			Buffer_s.erase( 0, 6);
@@ -282,7 +279,14 @@ int main( int argc, char** argv)
 			ReplyList[5] = "hello newfriend";
 			sayMessage( BotSocket, (string ) ReplyList[rand() % 6], TargetChannel);
 		}
-
+		
+		/*
+		 * rincewind shitposting
+		 */
+		if ( ( Buffer_s.find( "PRIVMSG", 0) != -1) && ( Buffer_s.find( "http://a.pomf.se/fedlrf.jpg", Buffer_s.find( "PRIVMSG", 0)) != -1) && ( Buffer_s.find( BotNickPrivMsg, 0) == -1))
+		{
+			sayMessage( BotSocket, (string ) "f e d relf dot  GAY  peg xD #x-D rincewind da best rt 4 folos", TargetChannel);
+		}
 
 		if ( ByteCount == 0)
 		{
