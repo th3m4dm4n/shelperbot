@@ -285,7 +285,7 @@ int main( int argc, char** argv)
 		 */
 		if ( ( Buffer_s.find( "PRIVMSG", 0) != -1) && ( Buffer_s.find( "http://a.pomf.se/fedrlf.jpg", Buffer_s.find( "PRIVMSG", 0)) != -1) && ( Buffer_s.find( BotNickPrivMsg, 0) == -1))
 		{
-			sayMessage( BotSocket, (string ) "f e d relf dot  GAY  peg xD #x-D rincewind da best rt 4 folos", TargetChannel);
+			sayMessage( BotSocket, (string ) "f e d relf dot  GAY  peg xD x-D rincewind da best rt 4 folos", TargetChannel);
 		}
 
 		if ( ByteCount == 0)
